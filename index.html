@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Репетиторство по математике и физике</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <span class="logo-text">Репетитор</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active">Главная</a>
+                    <a href="lessons.html" class="nav-link">Уроки</a>
+                    <a href="board.html" class="nav-link">Доска</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="index.html" class="mobile-link">Главная</a>
+                <a href="lessons.html" class="mobile-link">Уроки</a>
+                <a href="board.html" class="mobile-link">Доска</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Добро пожаловать</span><br>
+                    в мир знаний
+                </h1>
+                <p class="hero-subtitle">
+                    Репетиторство по математике и физике с интерактивными материалами
+                    и персонализированным подходом
+                </p>
+                <a href="lessons.html" class="btn btn-primary">
+                    Начать обучение
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects Section -->
+    <section class="subjects">
+        <div class="container">
+            <h2 class="section-title gradient-text">Предметы</h2>
+            <div class="subjects-grid">
+                <!-- Animated Formulas Background -->
+                <div class="formulas-background">
+                    <!-- Math Formulas -->
+                    <span class="formula-item math-formula formula-1">x² + y² = r²</span>
+                    <span class="formula-item math-formula formula-2">∫ f(x)dx</span>
+                    <span class="formula-item math-formula formula-3">sin²α + cos²α = 1</span>
+                    <span class="formula-item math-formula formula-4">a² + b² = c²</span>
+                    <span class="formula-item math-formula formula-5">e^(iπ) + 1 = 0</span>
+                    <span class="formula-item math-formula formula-6">lim(x→∞)</span>
+                    <span class="formula-item math-formula formula-7">∑</span>
+                    <span class="formula-item math-formula formula-8">∂f/∂x</span>
+                    
+                    <!-- Physics Formulas -->
+                    <span class="formula-item physics-formula formula-9">F = ma</span>
+                    <span class="formula-item physics-formula formula-10">E = mc²</span>
+                    <span class="formula-item physics-formula formula-11">E = hf</span>
+                    <span class="formula-item physics-formula formula-12">F = kq₁q₂/r²</span>
+                    <span class="formula-item physics-formula formula-13">PV = nRT</span>
+                    <span class="formula-item physics-formula formula-14">I = U/R</span>
+                    <span class="formula-item physics-formula formula-15">W = F·s</span>
+                    <span class="formula-item physics-formula formula-16">λ = h/p</span>
+                </div>
+                
+                <div class="subject-card slide-up">
+                    <div class="subject-icon blue-gradient">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <path d="M8 12h8M12 8v8"></path>
+                        </svg>
+                    </div>
+                    <h3>Математика</h3>
+                    <p>Алгебра, геометрия, тригонометрия и многое другое</p>
+                    <a href="lessons.html" class="card-link">
+                        Узнать больше
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="subject-card slide-up delay-1">
+                    <div class="subject-icon purple-gradient">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path>
+                        </svg>
+                    </div>
+                    <h3>Физика</h3>
+                    <p>Механика, термодинамика, электричество и оптика</p>
+                    <a href="lessons.html" class="card-link">
+                        Узнать больше
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title gradient-text">Особенности</h2>
+            <div class="features-grid">
+                <div class="feature-card slide-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Интерактивная теория</h3>
+                    <p>Подробные объяснения с примерами и визуализациями</p>
+                </div>
+                <div class="feature-card slide-up delay-1">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>Генерация задач</h3>
+                    <p>Автоматическая генерация задач по выбранной теме</p>
+                </div>
+                <div class="feature-card slide-up delay-2">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </div>
+                    <h3>Интерактивная доска</h3>
+                    <p>Рисуйте, решайте и стирайте как на настоящей доске</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-card slide-up">
+                <h2 class="section-title gradient-text">О преподавателе</h2>
+                <p class="about-text">
+                    Привет! Я репетитор по математике и физике.
+                    Моя цель — сделать изучение этих предметов увлекательным
+                    и понятным для каждого ученика.
+                </p>
+                <p class="about-text">
+                    На этом сайте вы найдете интерактивные материалы, подробную теорию
+                    и автоматически генерируемые задачи для практики. Каждая тема представлена
+                    в понятном формате с примерами и визуализациями.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2025 Репетиторство. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

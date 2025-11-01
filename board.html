@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивная доска - Репетиторство</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <span class="logo-text">Репетитор</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Главная</a>
+                    <a href="lessons.html" class="nav-link">Уроки</a>
+                    <a href="board.html" class="nav-link active">Доска</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="index.html" class="mobile-link">Главная</a>
+                <a href="lessons.html" class="mobile-link">Уроки</a>
+                <a href="board.html" class="mobile-link">Доска</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Board Page -->
+    <div class="board-page">
+        <div class="container">
+            <div class="page-header fade-in">
+                <h1 class="page-title gradient-text">Интерактивная доска</h1>
+                <p class="page-subtitle">Рисуйте, решайте задачи и стирайте как на настоящей доске</p>
+            </div>
+
+            <div class="board-container slide-up">
+                <!-- Toolbar -->
+                <div class="toolbar">
+                    <!-- Tools -->
+                    <div class="toolbar-group">
+                        <button class="tool-btn active" id="pencilBtn" onclick="setTool('pencil')" title="Карандаш">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                            </svg>
+                        </button>
+                        <button class="tool-btn" id="eraserBtn" onclick="setTool('eraser')" title="Ластик">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 12H3M17 8l4 4-4 4M7 8l-4 4 4 4"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Colors -->
+                    <div class="toolbar-group">
+                        <div class="colors-grid">
+                            <button class="color-btn" style="background: #d4af37" onclick="setColor('#d4af37')" title="Золотой"></button>
+                            <button class="color-btn active" style="background: #ffffff" onclick="setColor('#ffffff')" title="Белый"></button>
+                            <button class="color-btn" style="background: #ff0000" onclick="setColor('#ff0000')" title="Красный"></button>
+                            <button class="color-btn" style="background: #00ff00" onclick="setColor('#00ff00')" title="Зеленый"></button>
+                            <button class="color-btn" style="background: #0000ff" onclick="setColor('#0000ff')" title="Синий"></button>
+                            <button class="color-btn" style="background: #ffff00" onclick="setColor('#ffff00')" title="Желтый"></button>
+                            <button class="color-btn" style="background: #ff00ff" onclick="setColor('#ff00ff')" title="Пурпурный"></button>
+                            <button class="color-btn" style="background: #00ffff" onclick="setColor('#00ffff')" title="Циан"></button>
+                        </div>
+                    </div>
+
+                    <!-- Line Width -->
+                    <div class="toolbar-group">
+                        <label class="toolbar-label">Толщина:</label>
+                        <input type="range" id="lineWidth" min="1" max="20" value="3" oninput="setLineWidth(this.value)">
+                        <span class="toolbar-value" id="lineWidthValue">3</span>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="toolbar-group">
+                        <button class="tool-btn danger" onclick="clearBoard()" title="Очистить">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                        <button class="tool-btn success" onclick="downloadCanvas()" title="Скачать">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas -->
+                <div class="canvas-wrapper">
+                    <canvas id="drawingCanvas"></canvas>
+                </div>
+
+                <div class="board-hint">
+                    <p>💡 Подсказка: Используйте карандаш для рисования и ластик для стирания</p>
+                    <p>На мобильных устройствах можно рисовать пальцем</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2024 Репетиторство. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="board.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
