@@ -1175,20 +1175,8 @@ section {
 }
 
 /* Homework Page */
-.homework-page {
+.homework-wrapper {
     padding: 6rem 0 4rem;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-}
-
-body.homework-body {
-    overflow: hidden !important;
-    height: 100vh;
-}
-
-html.homework-body {
-    overflow: hidden !important;
 }
 
 .homework-header {
@@ -1202,7 +1190,7 @@ html.homework-body {
     margin-bottom: 1.5rem;
 }
 
-.back-btn {
+.homework-back-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -1216,18 +1204,18 @@ html.homework-body {
     transition: all 0.3s;
 }
 
-.back-btn:hover {
+.homework-back-btn:hover {
     background: rgba(212, 175, 55, 0.1);
     border-color: var(--gold);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
     transform: translateX(-3px);
 }
 
-.back-btn svg {
+.homework-back-btn svg {
     transition: transform 0.3s;
 }
 
-.back-btn:hover svg {
+.homework-back-btn:hover svg {
     transform: translateX(-3px);
 }
 
@@ -1251,19 +1239,22 @@ html.homework-body {
     color: var(--gold);
 }
 
-.homework-content-wrapper {
+.homework-main {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 2rem;
     margin-top: 2rem;
-    align-items: start;
 }
 
-.homework-content {
-    max-width: 900px;
-    margin: 0 auto;
+.homework-main-content {
     display: flex;
     flex-direction: column;
+}
+
+.homework-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
 }
 
 .homework-board-container {
@@ -1272,9 +1263,7 @@ html.homework-body {
     border: 1px solid rgba(212, 175, 55, 0.2);
     display: flex;
     flex-direction: column;
-    height: 60vh;
-    min-height: 400px;
-    max-height: 60vh;
+    height: 800px;
 }
 
 .homework-instructions {
@@ -1320,18 +1309,14 @@ html.homework-body {
 
 .homework-problems {
     margin-top: 2rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-right: 10px;
-    max-height: calc(100vh - 100px);
-    min-height: 600px;
+    width: 100%;
 }
 
 .problems-list {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding-bottom: 800px;
+    width: 100%;
 }
 
 .homework-problem {
@@ -1482,21 +1467,17 @@ html.homework-body {
 
 /* Responsive for Homework */
 @media (max-width: 768px) {
-    .homework-content-wrapper {
+    .homework-main {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
     
-    .homework-board-container {
-        height: 500px;
-        position: relative;
-        top: 0;
-        min-height: 500px;
+    .homework-sidebar {
+        position: static;
     }
     
-    .homework-problems {
-        max-height: none;
-        overflow-y: visible;
+    .homework-board-container {
+        height: 500px;
     }
     
     .homework-info {

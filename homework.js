@@ -73,11 +73,11 @@ function closeCodeModal() {
 }
 
 function showHomeworkContent() {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.homework-wrapper .container');
     container.innerHTML = `
         <div class="homework-header fade-in">
             <div class="homework-header-top">
-                <a href="index.html" class="back-btn">
+                <a href="index.html" class="homework-back-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 20px; height: 20px;">
                         <path d="M19 12H5M12 19l-7-7 7-7"/>
                     </svg>
@@ -92,8 +92,8 @@ function showHomeworkContent() {
             </div>
         </div>
         
-        <div class="homework-content-wrapper">
-            <div class="homework-content">
+        <div class="homework-main">
+            <div class="homework-main-content">
                 <div class="homework-instructions">
                     <h2>Инструкция</h2>
                     <p>Решите все 10 задач. Запишите ответы на листе бумаги или в тетради.</p>
@@ -118,49 +118,51 @@ function showHomeworkContent() {
                 <div id="homeworkProblems" class="homework-problems"></div>
             </div>
             
-            <div class="homework-board-container">
-                <div class="lesson-board-header">
-                    <h3>Доска для решения</h3>
-                </div>
-                <div class="lesson-board-toolbar">
-                    <div class="toolbar-group">
-                        <button class="tool-btn active" id="homeworkPencilBtn" onclick="setHomeworkTool('pencil')" title="Карандаш">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M12 20h9"></path>
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                            </svg>
-                        </button>
-                        <button class="tool-btn" id="homeworkEraserBtn" onclick="setHomeworkTool('eraser')" title="Ластик">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M21 12H3M17 8l4 4-4 4M7 8l-4 4 4 4"></path>
-                            </svg>
-                        </button>
+            <div class="homework-sidebar">
+                <div class="homework-board-container">
+                    <div class="lesson-board-header">
+                        <h3>Доска для решения</h3>
                     </div>
-                    <div class="toolbar-group">
-                        <div class="colors-grid">
-                            <button class="color-btn" style="background: #d4af37" onclick="setHomeworkColor('#d4af37')" title="Золотой"></button>
-                            <button class="color-btn active" style="background: #ffffff" onclick="setHomeworkColor('#ffffff')" title="Белый"></button>
-                            <button class="color-btn" style="background: #ff0000" onclick="setHomeworkColor('#ff0000')" title="Красный"></button>
-                            <button class="color-btn" style="background: #00ff00" onclick="setHomeworkColor('#00ff00')" title="Зеленый"></button>
-                            <button class="color-btn" style="background: #0000ff" onclick="setHomeworkColor('#0000ff')" title="Синий"></button>
+                    <div class="lesson-board-toolbar">
+                        <div class="toolbar-group">
+                            <button class="tool-btn active" id="homeworkPencilBtn" onclick="setHomeworkTool('pencil')" title="Карандаш">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="homeworkEraserBtn" onclick="setHomeworkTool('eraser')" title="Ластик">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 12H3M17 8l4 4-4 4M7 8l-4 4 4 4"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="toolbar-group">
+                            <div class="colors-grid">
+                                <button class="color-btn" style="background: #d4af37" onclick="setHomeworkColor('#d4af37')" title="Золотой"></button>
+                                <button class="color-btn active" style="background: #ffffff" onclick="setHomeworkColor('#ffffff')" title="Белый"></button>
+                                <button class="color-btn" style="background: #ff0000" onclick="setHomeworkColor('#ff0000')" title="Красный"></button>
+                                <button class="color-btn" style="background: #00ff00" onclick="setHomeworkColor('#00ff00')" title="Зеленый"></button>
+                                <button class="color-btn" style="background: #0000ff" onclick="setHomeworkColor('#0000ff')" title="Синий"></button>
+                            </div>
+                        </div>
+                        <div class="toolbar-group">
+                            <label class="toolbar-label">Толщина:</label>
+                            <input type="range" id="homeworkLineWidth" min="1" max="20" value="3" oninput="setHomeworkLineWidth(this.value)">
+                            <span class="toolbar-value" id="homeworkLineWidthValue">3</span>
+                        </div>
+                        <div class="toolbar-group">
+                            <button class="tool-btn danger" onclick="clearHomeworkBoard()" title="Очистить">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
-                    <div class="toolbar-group">
-                        <label class="toolbar-label">Толщина:</label>
-                        <input type="range" id="homeworkLineWidth" min="1" max="20" value="3" oninput="setHomeworkLineWidth(this.value)">
-                        <span class="toolbar-value" id="homeworkLineWidthValue">3</span>
+                    <div class="lesson-canvas-wrapper">
+                        <canvas id="homeworkCanvas"></canvas>
                     </div>
-                    <div class="toolbar-group">
-                        <button class="tool-btn danger" onclick="clearHomeworkBoard()" title="Очистить">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="lesson-canvas-wrapper">
-                    <canvas id="homeworkCanvas"></canvas>
                 </div>
             </div>
         </div>
@@ -625,6 +627,4 @@ function clearHomeworkBoard() {
 // Инициализация страницы
 document.addEventListener('DOMContentLoaded', function() {
     showCodeInput();
-    
 });
-
