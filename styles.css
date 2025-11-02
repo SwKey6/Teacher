@@ -1301,6 +1301,7 @@ section {
     border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
+
 .btn-secondary:hover {
     background: rgba(212, 175, 55, 0.1);
     border-color: var(--gold);
