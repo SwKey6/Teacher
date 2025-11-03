@@ -1,9 +1,21 @@
 // Коды доступа к домашним заданиям
 // Формат: код -> массив тем, доступных по этому коду
 const homeworkCodes = {
-    'FRACTIONS2026': {
+    'CODE45489935': {
         topic: 'fractions',
         topicName: 'Сложение и вычитание дробей. Неправильные дроби и целая часть',
+        subject: 'math',
+        grade: '7'
+    },
+    'CODE45489936': {
+        topic: 'equations6',
+        topicName: 'Уравнения: простейшие линейные уравнения',
+        subject: 'math',
+        grade: '6'
+    },
+    'CODE45489937': {
+        topic: 'equations7',
+        topicName: 'Уравнения: линейные уравнения со скобками и дробями',
         subject: 'math',
         grade: '7'
     }

@@ -181,6 +181,10 @@ function generateHomework() {
     
     if (currentCodeData.topic === 'fractions') {
         generatedProblems = generateFractionsProblems(10);
+    } else if (currentCodeData.topic === 'equations6') {
+        generatedProblems = generateEquations6Problems(10);
+    } else if (currentCodeData.topic === 'equations7') {
+        generatedProblems = generateEquations7Problems(10);
     } else {
         problemsContainer.innerHTML = '<p>Домашнее задание для этой темы пока не готово.</p>';
         return;
@@ -469,6 +473,113 @@ function findLCM(a, b) {
     return (a * b) / findGCD(a, b);
 }
 
+// Домашка: Уравнения для 6 класса (простейшие линейные)
+function generateEquations6Problems(count) {
+    const templates = [
+        () => {
+            const a = Math.floor(Math.random() * 9) + 6; // 6..14
+            const b = Math.floor(Math.random() * 10) + 10; // 10..19
+            return { text: `Решите уравнение: x + ${a} = ${b}`, answer: `${b - a}` };
+        },
+        () => {
+            const a = Math.floor(Math.random() * 9) + 6;
+            const b = Math.floor(Math.random() * 7) + 3;
+            return { text: `Решите уравнение: x − ${a} = ${b}`, answer: `${b + a}` };
+        },
+        () => {
+            const a = [2,3,4,5,6,7,8,9][Math.floor(Math.random()*8)];
+            const x = Math.floor(Math.random() * 9) + 2; // 2..10
+            return { text: `Решите уравнение: ${a}x = ${a * x}`, answer: `${x}` };
+        },
+        () => {
+            const a = [2,3,4,5,6,7,8,9][Math.floor(Math.random()*8)];
+            const x = Math.floor(Math.random() * 9) + 2;
+            return { text: `Решите уравнение: x / ${a} = ${x}`, answer: `${a * x}` };
+        },
+        () => {
+            const s = Math.floor(Math.random() * 9) + 11; // сумма
+            const a = Math.floor(Math.random() * (s - 2)) + 1;
+            return { text: `Решите уравнение: ${a} + x = ${s}`, answer: `${s - a}` };
+        },
+        () => {
+            const left = Math.floor(Math.random() * 10) + 10;
+            const x = Math.floor(Math.random() * 8) + 2;
+            return { text: `Решите уравнение: ${left} − x = ${left - x}` , answer: `${x}` };
+        }
+    ];
+    const problems = [];
+    while (problems.length < count) {
+        const p = templates[problems.length % templates.length]();
+        problems.push({ text: p.text, answer: p.answer });
+    }
+    return problems;
+}
+
+// Домашка: Уравнения для 7 класса (скобки, обе стороны, дроби)
+function generateEquations7Problems(count) {
+    const problems = [];
+    const push = (text, answer, solution) => problems.push({ text, answer, solution });
+    const rand = (arr) => arr[Math.floor(Math.random()*arr.length)];
+
+    while (problems.length < count) {
+        const type = problems.length % 6;
+        if (type === 0) {
+            // Скобки
+            const a = rand([2,3,4,5]);
+            const b = rand([2,3,4]);
+            const p = rand([1,2,3,4]);
+            const q = rand([1,2,3]);
+            // a(x - p) = b(x + q)
+            // ax - ap = bx + bq -> (a-b)x = ap + bq
+            const leftCoef = a - b;
+            if (leftCoef === 0) { continue; }
+            const rhs = a*p + b*q;
+            const x = rhs / leftCoef;
+            push(`Решите уравнение: ${a}(x − ${p}) = ${b}(x + ${q})`, `x = ${x}`, `${a}x − ${a*p} = ${b}x + ${b*q} → ${(a-b)}x = ${rhs} → x = ${x}`);
+        } else if (type === 1) {
+            // x по обе стороны
+            const m = rand([4,5,6,7,8]);
+            const n = rand([1,2,3,4]);
+            const p = rand([2,3,4,5]);
+            const q = rand([1,2,3]);
+            // m x - n = p x + q -> (m-p)x = n + q
+            const left = m - p; if (left === 0) continue;
+            const rhs = n + q;
+            const x = rhs / left;
+            push(`Решите уравнение: ${m}x − ${n} = ${p}x + ${q}`, `x = ${x}`, `${(m-p)}x = ${n}+${q} = ${rhs} → x = ${x}`);
+        } else if (type === 2) {
+            // Дробные коэффициенты (общий знаменатель)
+            const d1 = rand([2,3,4,5,6]);
+            const d2 = rand([2,3,4,5,6]);
+            const L = d1*d2;
+            const a = rand([1,2,3,4,5]);
+            const b = rand([1,2,3,4,5]);
+            // x/d1 + a/d2 = b/d2
+            const x = (b - a) * (L / d1) / (L / d1); // simplifies to (b-a)
+            push(`Решите уравнение: x/${d1} + ${a}/${d2} = ${b}/${d2}`, `x = ${(b - a)}`, `× ${L}: ${(L/d1)}x + ${a*(L/d2)} = ${b*(L/d2)} → ${(L/d1)}x = ${(b-a)*(L/d2)} → x = ${b-a}`);
+        } else if (type === 3) {
+            // Пропорция
+            const a = rand([2,3,4,5,6]);
+            const b = rand([6,8,9,10,12]);
+            const c = rand([1,2,3,4,5]);
+            // x/a = c/b -> bx = ac -> x = ac/b
+            const num = a*c;
+            const den = b;
+            const val = num/den;
+            push(`Решите уравнение: x/${a} = ${c}/${b}`, `x = ${val}`, `${b}x = ${a}·${c} → x = ${num}/${den} = ${val}`);
+        } else if (type === 4) {
+            // Скобки обе стороны, целочисленный ответ
+            const a = 2, b = 1, p = 3, q = 1;
+            // 2(x-3) = (x+1) -> 2x-6 = x+1 -> x=7
+            push(`Решите уравнение: 2(x − 3) = x + 1`, `x = 7`, `2x − 6 = x + 1 → x = 7`);
+        } else {
+            // Дроби с переносом
+            // (x+1)/5 = 4 -> x+1 = 20 -> x=19
+            push(`Решите уравнение: (x + 1)/5 = 4`, `x = 19`, `x + 1 = 20 → x = 19`);
+        }
+    }
+    return problems.slice(0, count);
+}
 // Homework Board Logic
 let homeworkCanvas = null;
 let homeworkCtx = null;

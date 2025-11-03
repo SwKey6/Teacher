@@ -10,10 +10,12 @@ const topicsData = {
             { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' }
         ],
         '6': [
-            { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' }
+            { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' },
+            { id: 'equations', name: 'Уравнения: простейшие линейные уравнения' }
         ],
         '7': [
-            { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' }
+            { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' },
+            { id: 'equations', name: 'Уравнения: линейные уравнения с скобками и дробями' }
         ]
     },
     physics: {
@@ -80,6 +82,9 @@ function loadLessonContent(topicId, topicName) {
     if (topicId === 'fractions') {
         loadFractionsTheory(theorySection, topicName);
         loadFractionsProblems(problemsSection);
+    } else if (topicId === 'equations') {
+        loadEquationsTheory(theorySection, topicName);
+        loadEquationsProblems(problemsSection);
     } else {
         theorySection.innerHTML = '<p>Теория будет добавлена позже.</p>';
         problemsSection.innerHTML = '<p>Задачи будут добавлены позже.</p>';
@@ -89,6 +94,126 @@ function loadLessonContent(topicId, topicName) {
     setTimeout(() => {
         initLessonBoard();
     }, 100);
+}
+
+function loadEquationsTheory(section, topicName) {
+    const isGrade6 = currentGrade === '6';
+    const isGrade7 = currentGrade === '7';
+    const title = isGrade6 ? 'Простейшие линейные уравнения' : 'Линейные уравнения со скобками и дробями';
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Теория: ${topicName}
+        </h2>
+        <h3>${title}</h3>
+        <p><strong>Уравнение</strong> — это равенство с переменной, верное при некоторых значениях переменной. Цель — найти это значение.</p>
+        ${isGrade6 ? `
+        <h4>1. Уравнения вида x + a = b</h4>
+        <p>Чтобы найти x, перенесём a в другую сторону со знаком минус: x = b − a.</p>
+        <div class="example-box">
+            <p>Пример: x + 7 = 15 → x = 15 − 7 = 8.</p>
+        </div>
+        <h4>2. Уравнения вида x − a = b</h4>
+        <p>Перенесём a вправо со знаком плюс: x = b + a.</p>
+        <div class="example-box">
+            <p>Пример: x − 9 = 4 → x = 4 + 9 = 13.</p>
+        </div>
+        <h4>3. Уравнения вида a·x = b</h4>
+        <p>Разделим обе части на a: x = b / a (a ≠ 0).</p>
+        <div class="example-box">
+            <p>Пример: 5x = 35 → x = 35 / 5 = 7.</p>
+        </div>
+        <h4>4. Уравнения вида x / a = b</h4>
+        <p>Умножим обе части на a: x = a·b.</p>
+        <div class="example-box">
+            <p>Пример: x/4 = 6 → x = 6·4 = 24.</p>
+        </div>
+        ` : `
+        <h4>1. Уравнения со скобками</h4>
+        <p>Сначала раскрываем скобки, затем переносим члены с x влево, числа — вправо, делим на коэффициент при x.</p>
+        <div class="example-box">
+            <p>Пример: 3(x − 2) = 2(x + 1) → 3x − 6 = 2x + 2 → x = 8.</p>
+        </div>
+        <h4>2. Уравнения с x по обе стороны</h4>
+        <p>Переносим выражения с x в одну сторону, числа — в другую.</p>
+        <div class="example-box">
+            <p>Пример: 7x − 5 = 4x + 10 → 3x = 15 → x = 5.</p>
+        </div>
+        <h4>3. Дробные коэффициенты</h4>
+        <p>Умножаем обе части на общий знаменатель, чтобы убрать дроби.</p>
+        <div class="example-box">
+            <p>Пример: (x/3) + 1/2 = 5/6 → умножим на 6: 2x + 3 = 5 → 2x = 2 → x = 1.</p>
+        </div>
+        <h4>4. Пропорции</h4>
+        <p>Если a/b = c/d, то ad = bc (перекрёстное умножение).</p>
+        <div class="example-box">
+            <p>Пример: x/4 = 6/8 → 8x = 24 → x = 3.</p>
+        </div>
+        `}
+        <h4>Важно</h4>
+        <ul>
+            <li>Делить на ноль нельзя.</li>
+            <li>Одинаковые действия выполняются с обеими частями уравнения.</li>
+            <li>Проверяйте ответ подстановкой.</li>
+        </ul>
+    `;
+}
+
+function loadEquationsProblems(section) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Генератор задач
+        </h2>
+        <p>Нажмите кнопку ниже, чтобы сгенерировать задачу по теме «Уравнения»:</p>
+        <button class="generate-btn" onclick="generateEquationProblem()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 20px; height: 20px;">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 1 1 10-10"></path>
+            </svg>
+            Сгенерировать задачу
+        </button>
+        <div id="problemContainer"></div>
+    `;
+}
+
+function generateEquationProblem() {
+    const container = document.getElementById('problemContainer');
+    const grade = currentGrade;
+    const problems = grade === '6' ? [
+        { p: 'x + 7 = 15', a: 'x = 8' },
+        { p: 'x − 9 = 4', a: 'x = 13' },
+        { p: '5x = 35', a: 'x = 7' },
+        { p: 'x / 4 = 6', a: 'x = 24' },
+        { p: 'x + 18 = 27', a: 'x = 9' },
+        { p: '12 − x = 5', a: 'x = 7' },
+        { p: '3x = 24', a: 'x = 8' },
+        { p: 'x/5 = 9', a: 'x = 45' }
+    ] : [
+        { p: '3(x − 2) = 2(x + 1)', a: 'x = 8' },
+        { p: '7x − 5 = 4x + 10', a: 'x = 5' },
+        { p: '(x/3) + 1/2 = 5/6', a: 'x = 1' },
+        { p: '2(x + 5) = x + 17', a: 'x = 7' },
+        { p: '5(x − 1) = 3x + 7', a: 'x = 6' },
+        { p: 'x/4 = 6/8', a: 'x = 3' },
+        { p: '2x − (x − 3) = 10', a: 'x = 7' },
+        { p: '(x + 1)/5 = 4', a: 'x = 19' }
+    ];
+    const random = problems[Math.floor(Math.random() * problems.length)];
+    container.innerHTML = `
+        <div class="problem-box">
+            <h3>Задача:</h3>
+            <p class="problem-text">Решите уравнение: ${random.p}</p>
+            <details>
+                <summary class="answer-toggle">Показать ответ</summary>
+                <div class="answer-content">${random.a}</div>
+            </details>
+        </div>
+    `;
 }
 
 function loadFractionsTheory(section, topicName) {
