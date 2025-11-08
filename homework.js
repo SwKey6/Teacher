@@ -185,6 +185,12 @@ function generateHomework() {
         generatedProblems = generateEquations6Problems(10);
     } else if (currentCodeData.topic === 'equations7') {
         generatedProblems = generateEquations7Problems(10);
+    } else if (currentCodeData.topic === 'expressions6') {
+        generatedProblems = generateExpressions6Homework(10);
+    } else if (currentCodeData.topic === 'expressions7') {
+        generatedProblems = generateExpressions7Homework(10);
+    } else if (currentCodeData.topic === 'speed-basics') {
+        generatedProblems = generatePhysicsSpeedHomework(10);
     } else {
         problemsContainer.innerHTML = '<p>Домашнее задание для этой темы пока не готово.</p>';
         return;
@@ -580,6 +586,174 @@ function generateEquations7Problems(count) {
     }
     return problems.slice(0, count);
 }
+
+function generateExpressions6Homework(count) {
+    const problems = [];
+    const randValue = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    while (problems.length < count) {
+        const type = problems.length % 4;
+        if (type === 0) {
+            const a = randValue(2, 8);
+            const b = randValue(1, 6);
+            const x = randValue(1, 7);
+            const y = randValue(1, 6);
+            const extra = randFrom([-5, -3, -2, 2, 4, 7]);
+            const expression = `${a}x + ${b}y ${extra >= 0 ? '+ ' + extra : '- ' + Math.abs(extra)}`;
+            const value = a * x + b * y + extra;
+            problems.push({
+                text: `Вычислите значение выражения ${expression}, если x = ${x}, y = ${y}.`,
+                answer: value,
+                solution: `${a} · ${x} + ${b} · ${y} ${extra >= 0 ? '+ ' + extra : '- ' + Math.abs(extra)} = ${a*x} + ${b*y} ${extra >= 0 ? '+ ' + extra : '- ' + Math.abs(extra)} = ${value}`
+            });
+        } else if (type === 1) {
+            const a = randValue(3, 9);
+            const b = randValue(2, 8);
+            const x = randValue(2, 5);
+            const y = randValue(1, 5);
+            const expression = `${a}x - ${b}y`;
+            const value = a * x - b * y;
+            problems.push({
+                text: `Подставьте значения x = ${x}, y = ${y} в выражение ${expression}.`,
+                answer: value,
+                solution: `${a} · ${x} - ${b} · ${y} = ${a*x} - ${b*y} = ${value}`
+            });
+        } else if (type === 2) {
+            const a = randValue(2, 5);
+            const b = randValue(2, 5);
+            const x = randValue(-3, 6);
+            const y = randValue(-3, 6);
+            const expression = `4x + 3y - ${a}`;
+            const value = 4 * x + 3 * y - a;
+            problems.push({
+                text: `Найдите значение выражения ${expression}, если x = ${x}, y = ${y}.`,
+                answer: value,
+                solution: `4 · ${x} + 3 · ${y} - ${a} = ${4*x} + ${3*y} - ${a} = ${value}`
+            });
+        } else {
+            const x = randValue(2, 6);
+            const y = randValue(2, 6);
+            const expression = `2(x + y) + 5`;
+            const value = 2 * (x + y) + 5;
+            problems.push({
+                text: `Вычислите значение выражения ${expression}, если x = ${x}, y = ${y}.`,
+                answer: value,
+                solution: `2(${x} + ${y}) + 5 = 2 · ${x+y} + 5 = ${2*(x+y)} + 5 = ${value}`
+            });
+        }
+    }
+    return problems.slice(0, count);
+}
+
+function generateExpressions7Homework(count) {
+    const problems = [];
+    const randFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const randValue = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const formatNumber = (num) => Number.isInteger(num) ? num : Math.round(num * 100) / 100;
+    while (problems.length < count) {
+        const type = problems.length % 5;
+        if (type === 0) {
+            const x = randFrom([1, 2, 3, -1, -2]);
+            const y = randFrom([2, 4, -3, 5]);
+            const z = randFrom([2, -4, 6]);
+            const left = 2 * (3 * x - y);
+            const right = 1.25 * z;
+            const value = left + right;
+            problems.push({
+                text: `Вычислите 2(3x - y) + (5/4)·z, если x = ${x}, y = ${y}, z = ${z}.`,
+                answer: formatNumber(value),
+                solution: `2(3 · ${x} - ${y}) + (5/4) · ${z} = 2(${3*x} - ${y}) + ${formatNumber(1.25*z)} = ${formatNumber(left)} + ${formatNumber(1.25*z)} = ${formatNumber(value)}`
+            });
+        } else if (type === 1) {
+            const x = randFrom([0.5, 1, 1.5, 2]);
+            const y = randFrom([-3, -2, 4]);
+            const first = (1/3) * (6 * x + 9);
+            const second = (1/2) * (y - 4);
+            const value = first - second;
+            problems.push({
+                text: `Подставьте x = ${x}, y = ${y} в выражение (1/3)(6x + 9) - (1/2)(y - 4).`,
+                answer: formatNumber(value),
+                solution: `(1/3)(6 · ${x} + 9) - (1/2)(${y} - 4) = ${formatNumber(first)} - ${formatNumber(second)} = ${formatNumber(value)}`
+            });
+        } else if (type === 2) {
+            const x = randFrom([2, 3, 4, -2]);
+            const y = randFrom([1, -1, 5]);
+            const z = randFrom([2, 6, -3]);
+            const value = 4 * x - 2 * (y - 5) + 1.5 * z;
+            problems.push({
+                text: `Вычислите 4x - 2(y - 5) + (3/2)·z, если x = ${x}, y = ${y}, z = ${z}.`,
+                answer: formatNumber(value),
+                solution: `4 · ${x} - 2(${y} - 5) + (3/2) · ${z} = ${4*x} - 2(${y - 5}) + ${formatNumber(1.5*z)} = ${formatNumber(value)}`
+            });
+        } else if (type === 3) {
+            const a = randValue(2, 5);
+            const b = randValue(2, 6);
+            const x = randFrom([1, 2, 3, 4]);
+            const y = randFrom([-2, -1, 0.5, 1.5]);
+            const value = (a * x) / b + (3/5) * y;
+            problems.push({
+                text: `Найдите значение выражения (${a}/${b})x + (3/5)y, если x = ${x}, y = ${y}.`,
+                answer: formatNumber(value),
+                solution: `(${a}/${b}) · ${x} + (3/5) · ${y} = ${formatNumber((a*x)/b)} + ${formatNumber(0.6*y)} = ${formatNumber(value)}`
+            });
+        } else {
+            const x = randFrom([1, 2, 3]);
+            const y = randFrom([2, 4, 5]);
+            const value = (x + y) * (x - y);
+            problems.push({
+                text: `Подставьте x = ${x}, y = ${y} и вычислите (x + y)(x - y).`,
+                answer: formatNumber(value),
+                solution: `(${x} + ${y})(${x} - ${y}) = ${x + y} · ${x - y} = ${value}`
+            });
+        }
+    }
+    return problems.slice(0, count);
+}
+
+function generatePhysicsSpeedHomework(count) {
+    const problems = [];
+    const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const round = (num) => Number.isInteger(num) ? num : Math.round(num * 100) / 100;
+    while (problems.length < count) {
+        const type = problems.length % 3;
+        if (type === 0) {
+            const v = rand([36, 45, 60, 72]);
+            const t = rand([1.5, 2, 2.5, 3]);
+            const s = v * t;
+            problems.push({
+                text: `Поезд движется со скоростью ${v} км/ч в течение ${t} ч. Какой путь он пройдет?`,
+                answer: `${round(s)} км`,
+                solution: `S = v · t = ${v} · ${t} = ${round(s)} км`
+            });
+        } else if (type === 1) {
+            const s1 = rand([20, 30, 40, 60]);
+            const s2 = rand([15, 25, 35]);
+            const v1 = rand([4, 5, 6]);
+            const v2 = rand([6, 8, 10]);
+            const t1 = s1 / v1;
+            const t2 = s2 / v2;
+            const vsr = (s1 + s2) / (t1 + t2);
+            problems.push({
+                text: `Турист прошёл ${s1} км со скоростью ${v1} км/ч и ${s2} км со скоростью ${v2} км/ч. Найдите среднюю скорость туриста на всём пути.`,
+                answer: `${round(vsr)} км/ч`,
+                solution: `t₁ = ${s1}/${v1} = ${round(t1)} ч, t₂ = ${s2}/${v2} = ${round(t2)} ч, vₛᵣ = (${s1} + ${s2}) / (${round(t1)} + ${round(t2)}) ≈ ${round(vsr)} км/ч`
+            });
+        } else {
+            const v1 = rand([12, 15, 18]);
+            const v2 = rand([20, 25, 30]);
+            const distance = rand([90, 120, 150]);
+            const vrel = v1 + v2;
+            const time = distance / vrel;
+            problems.push({
+                text: `Два велосипедиста выехали навстречу друг другу из пунктов, расстояние между которыми ${distance} км. Скорости: ${v1} км/ч и ${v2} км/ч. Через сколько часов они встретятся?`,
+                answer: `${round(time)} ч`,
+                solution: `vₛᵦл = ${v1} + ${v2} = ${vrel} км/ч, t = S / vₛᵦл = ${distance} / ${vrel} = ${round(time)} ч`
+            });
+        }
+    }
+    return problems.slice(0, count);
+}
+
 // Homework Board Logic
 let homeworkCanvas = null;
 let homeworkCtx = null;

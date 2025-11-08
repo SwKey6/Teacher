@@ -11,16 +11,19 @@ const topicsData = {
         ],
         '6': [
             { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' },
-            { id: 'equations', name: 'Уравнения: простейшие линейные уравнения' }
+            { id: 'equations', name: 'Уравнения: простейшие линейные уравнения' },
+            { id: 'expressions6', name: 'Подстановка и вычисление значения выражения' }
         ],
         '7': [
             { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' },
-            { id: 'equations', name: 'Уравнения: линейные уравнения с скобками и дробями' }
+            { id: 'equations', name: 'Уравнения: линейные уравнения с скобками и дробями' },
+            { id: 'expressions7', name: 'Подстановка и вычисление значения выражения (дроби, скобки)' }
         ]
     },
     physics: {
         '7': [
-            { id: 'mechanics', name: 'Механика' }
+            { id: 'mechanics', name: 'Механика' },
+            { id: 'speed-basics', name: 'Скорость, путь, время. Средняя и относительная скорость' }
         ]
     }
 };
@@ -85,6 +88,12 @@ function loadLessonContent(topicId, topicName) {
     } else if (topicId === 'equations') {
         loadEquationsTheory(theorySection, topicName);
         loadEquationsProblems(problemsSection);
+    } else if (topicId === 'expressions6' || topicId === 'expressions7') {
+        loadExpressionsTheory(theorySection, topicName);
+        loadExpressionsProblems(problemsSection, topicId);
+    } else if (topicId === 'speed-basics') {
+        loadPhysicsSpeedTheory(theorySection, topicName);
+        loadPhysicsSpeedProblems(problemsSection);
     } else {
         theorySection.innerHTML = '<p>Теория будет добавлена позже.</p>';
         problemsSection.innerHTML = '<p>Задачи будут добавлены позже.</p>';
@@ -390,6 +399,334 @@ function generateFractionProblem() {
             <details>
                 <summary class="answer-toggle">Показать ответ</summary>
                 <div class="answer-content">${random.answer}</div>
+            </details>
+        </div>
+    `;
+}
+
+function loadExpressionsTheory(section, topicName) {
+    const isGrade6 = currentGrade === '6';
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Теория: ${topicName}
+        </h2>
+        <h3>${isGrade6 ? 'Как подставлять значения в выражение' : 'Подстановка значений в сложные алгебраические выражения'}</h3>
+        <p>${isGrade6 ? 'Чтобы вычислить значение выражения с переменными, нужно вместо букв подставить их значения и выполнить действия по порядку.' : 'Подставляем значения переменных, аккуратно работаем со скобками и дробями, соблюдаем порядок действий и приводим дроби к общему знаменателю при необходимости.'}</p>
+        <h4>Алгоритм</h4>
+        <ol>
+            <li>Запишите выражение и рядом значения переменных.</li>
+            <li>${isGrade6 ? 'Подставьте числа вместо букв.' : 'Подставьте числа вместо букв с учётом знаков и дробей.'}</li>
+            <li>Выполняйте действия ${isGrade6 ? 'слева направо с учётом порядка операций (сначала скобки, затем умножение/деление, потом сложение/вычитание).' : 'внутри скобок, затем умножение/деление, далее сложение/вычитание. Для дробей используйте общий знаменатель.'}</li>
+            <li>Запишите ответ.</li>
+        </ol>
+        <div class="example-box">
+            <h4>Пример</h4>
+            ${isGrade6 ? `
+            <p>Вычислите значение выражения <span class="formula">4x + 7y</span>, если <span class="formula">x = 3</span>, <span class="formula">y = 2</span>.</p>
+            <p>Подставляем: <span class="formula">4 · 3 + 7 · 2 = 12 + 14 = 26</span>.</p>
+            ` : `
+            <p>Вычислите значение выражения <span class="formula">2(3x - y) + (5/6)·z</span>, если <span class="formula">x = 1/2</span>, <span class="formula">y = -3</span>, <span class="formula">z = 12</span>.</p>
+            <p>Подставляем: <span class="formula">2(3 · 1/2 - (-3)) + (5/6) · 12 = 2(1.5 + 3) + 10 = 2 · 4.5 + 10 = 9 + 10 = 19</span>.</p>
+            `}
+        </div>
+        <h4>Советы</h4>
+        <ul>
+            <li>Всегда используйте скобки при подстановке отрицательных чисел.</li>
+            <li>${isGrade6 ? 'Проверяйте умножение и сложение на черновике.' : 'Для дробей сокращайте результат, если это возможно.'}</li>
+            <li>Переписывайте выражение аккуратно, чтобы не потерять знак.</li>
+        </ul>
+    `;
+}
+
+function loadExpressionsProblems(section, topicId) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Генератор задач
+        </h2>
+        <p>Нажмите кнопку ниже, чтобы потренироваться в подстановке значений:</p>
+        <button class="generate-btn" onclick="generateExpressionsProblem('${topicId}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 20px; height: 20px;">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 1 1 10-10"></path>
+            </svg>
+            Сгенерировать задачу
+        </button>
+        <div id="expressionsProblemContainer"></div>
+    `;
+}
+
+function generateExpressionsProblem(topicId) {
+    const container = document.getElementById('expressionsProblemContainer');
+    const isGrade6 = topicId === 'expressions6';
+    const problems = isGrade6 ? generateGrade6ExpressionProblems() : generateGrade7ExpressionProblems();
+    const random = problems[Math.floor(Math.random() * problems.length)];
+    container.innerHTML = `
+        <div class="problem-box">
+            <h3>Задача:</h3>
+            <p class="problem-text">${random.problem}</p>
+            <details>
+                <summary class="answer-toggle">Показать решение</summary>
+                <div class="answer-content">${random.answer}</div>
+            </details>
+        </div>
+    `;
+}
+
+function generateGrade6ExpressionProblems() {
+    const randFrom = (array) => array[Math.floor(Math.random() * array.length)];
+    const expressions = [];
+    for (let i = 0; i < 12; i++) {
+        const coefX = Math.floor(Math.random() * 6) + 2; // 2..7
+        const coefY = Math.floor(Math.random() * 5) + 1; // 1..5
+        const signY = randFrom([1, -1]);
+        const xVal = randFrom([2, 3, 4, 5, 6]);
+        const yVal = randFrom([1, 2, 3, 4]);
+        const extra = Math.floor(Math.random() * 11) - 5; // -5..5
+        const useExtra = Math.random() > 0.6;
+        const expression = `${coefX}x ${signY === 1 ? '+ ' + coefY : '- ' + coefY}y${useExtra ? (extra >= 0 ? ' + ' + extra : ' - ' + Math.abs(extra)) : ''}`;
+        const value = coefX * xVal + (signY * coefY) * yVal + (useExtra ? extra : 0);
+        expressions.push({
+            problem: `Вычислите значение выражения ${expression}, если x = ${xVal}, y = ${yVal}.`,
+            answer: `${coefX} · ${xVal} ${signY === 1 ? '+ ' + coefY + ' · ' + yVal : '- ' + coefY + ' · ' + yVal}${useExtra ? (extra >= 0 ? ' + ' + extra : ' - ' + Math.abs(extra)) : ''} = ${value}`
+        });
+    }
+    expressions.push({
+        problem: 'Вычислите значение выражения 3a - 2b + 9, если a = 4, b = 5.',
+        answer: '3 · 4 - 2 · 5 + 9 = 12 - 10 + 9 = 11'
+    });
+    expressions.push({
+        problem: 'Найдите значение выражения 6m + 8n, если m = 1, n = 7.',
+        answer: '6 · 1 + 8 · 7 = 6 + 56 = 62'
+    });
+    return expressions;
+}
+
+function generateGrade7ExpressionProblems() {
+    const randFrom = (array) => array[Math.floor(Math.random() * array.length)];
+    const problems = [];
+    const formatNumber = (num) => Number.isInteger(num) ? num : Math.round(num * 100) / 100;
+    for (let i = 0; i < 10; i++) {
+        const xVal = randFrom([1, 2, 3, -2, -1, 0.5]);
+        const yVal = randFrom([3, -1, 4, 2]);
+        const zVal = randFrom([2, 4, -3, 6]);
+        const exprType = i % 3;
+        let problemText = '';
+        let answerText = '';
+        if (exprType === 0) {
+            // Сложная линейная комбинация
+            const expression = `2(3x - y) + (5/4)·z`;
+            const leftPart = 2 * (3 * xVal - yVal);
+            const rightPart = (5 / 4) * zVal;
+            const result = leftPart + rightPart;
+            problemText = `Вычислите значение выражения ${expression}, если x = ${xVal}, y = ${yVal}, z = ${zVal}.`;
+            answerText = `2(3 · ${xVal} - ${yVal}) + (5/4) · ${zVal} = 2(${3 * xVal} - ${yVal}) + ${formatNumber(rightPart)} = ${formatNumber(leftPart)} + ${formatNumber(rightPart)} = ${formatNumber(result)}`;
+        } else if (exprType === 1) {
+            // Дроби со скобками
+            const expression = `(1/3)(6x + 9) - (1/2)(y - 4)`;
+            const result = (1 / 3) * (6 * xVal + 9) - (1 / 2) * (yVal - 4);
+            problemText = `Подставьте значения x = ${xVal}, y = ${yVal} в выражение ${expression} и найдите результат.`;
+            answerText = `(1/3)(6 · ${xVal} + 9) - (1/2)(${yVal} - 4) = (1/3)(${6 * xVal + 9}) - (1/2)(${yVal - 4}) = ${formatNumber(result)}`;
+        } else {
+            // Три переменные и отрицательные числа
+            const expression = `4x - 2(y - 5) + (3/2)·z`;
+            const result = 4 * xVal - 2 * (yVal - 5) + 1.5 * zVal;
+            problemText = `Вычислите значение выражения ${expression}, если x = ${xVal}, y = ${yVal}, z = ${zVal}.`;
+            answerText = `4 · ${xVal} - 2(${yVal} - 5) + (3/2) · ${zVal} = ${formatNumber(4 * xVal)} - 2(${yVal - 5}) + ${formatNumber(1.5 * zVal)} = ${formatNumber(result)}`;
+        }
+        problems.push({
+            problem: problemText,
+            answer: answerText
+        });
+    }
+    problems.push({
+        problem: 'Найдите значение выражения (2/5)x + (3/10)y, если x = 15, y = -20.',
+        answer: '(2/5) · 15 + (3/10) · (-20) = 6 - 6 = 0'
+    });
+    problems.push({
+        problem: 'Вычислите 3(x - 2) - 2(y + 4), если x = 7, y = -1.',
+        answer: '3(7 - 2) - 2(-1 + 4) = 3 · 5 - 2 · 3 = 15 - 6 = 9'
+    });
+    return problems;
+}
+
+function loadPhysicsSpeedTheory(section, topicName) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Теория: ${topicName}
+        </h2>
+        <h3>1. Скорость, путь, время</h3>
+        <p><strong>Путь (S)</strong> — пройденное расстояние, измеряется в метрах (м) или километрах (км).</p>
+        <p><strong>Время (t)</strong> — длительность движения, измеряется в секундах (с) или часах (ч).</p>
+        <p><strong>Скорость (v)</strong> — показывает, какой путь проходит тело за единицу времени.</p>
+        <div class="example-box">
+            <p>Основные формулы:</p>
+            <ul>
+                <li>v = S / t</li>
+                <li>S = v · t</li>
+                <li>t = S / v</li>
+            </ul>
+        </div>
+        <h3>2. Средняя скорость</h3>
+        <p>Если тело проходит несколько участков, средняя скорость равна отношению общего пути ко всему времени: <span class="formula">v<sub>ср</sub> = S<sub>общ</sub> / t<sub>общ</sub></span>.</p>
+        <div class="example-box">
+            <p>Автомобиль прошёл 60 км за 1 ч и ещё 40 км за 0.5 ч. Общий путь 100 км, время 1.5 ч, значит v<sub>ср</sub> = 100 / 1.5 ≈ 66.7 км/ч.</p>
+        </div>
+        <h3>3. Скорость сближения и удаления</h3>
+        <p>Если тела движутся навстречу друг другу, скорость сближения равна сумме их скоростей: v<sub>сбл</sub> = v<sub>1</sub> + v<sub>2</sub>.</p>
+        <p>Если движутся в одном направлении, скорость удаления (или догоняния) равна разности скоростей: v<sub>дог</sub> = |v<sub>1</sub> − v<sub>2</sub>|.</p>
+        <div class="example-box">
+            <p>Два велосипедиста выехали навстречу: 12 км/ч и 18 км/ч. Скорость сближения 30 км/ч.</p>
+        </div>
+        <h4>Полезно помнить</h4>
+        <ul>
+            <li>Следите за единицами измерения (час/километр, секунда/метр).</li>
+            <li>Перевод: 1 ч = 60 мин = 3600 с, 1 км = 1000 м.</li>
+            <li>Скорость — величина векторная, но в задачах 7 класса работаем с направлением словами.</li>
+        </ul>
+    `;
+}
+
+function loadPhysicsSpeedProblems(section) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Генератор задач
+        </h2>
+        <p>Выберите тип задачи и нажмите кнопку, чтобы получить условие:</p>
+        <div class="physics-problem-buttons">
+            <button class="generate-btn" onclick="generatePhysicsSpeedProblem('basic')">Скорость, путь, время</button>
+            <button class="generate-btn" onclick="generatePhysicsSpeedProblem('average')">Средняя скорость</button>
+            <button class="generate-btn" onclick="generatePhysicsSpeedProblem('relative')">Скорость сближения</button>
+        </div>
+        <div id="physicsSpeedProblemContainer"></div>
+    `;
+}
+
+function generatePhysicsSpeedProblem(type) {
+    const container = document.getElementById('physicsSpeedProblemContainer');
+    const rand = (array) => array[Math.floor(Math.random() * array.length)];
+    const basicTemplates = [
+        () => {
+            const v = rand([30, 45, 54, 60]);
+            const t = rand([2, 3, 4]);
+            return {
+                problem: `Автомобиль движется со скоростью ${v} км/ч в течение ${t} ч. Какой путь он проедет?`,
+                answer: `S = v · t = ${v} · ${t} = ${v * t} км`
+            };
+        },
+        () => {
+            const s = rand([120, 150, 200]);
+            const v = rand([40, 50, 60]);
+            return {
+                problem: `Пешеход прошёл ${s} км со скоростью ${v} км/ч. Сколько времени занял путь?`,
+                answer: `t = S / v = ${s} / ${v} = ${Math.round((s / v) * 10) / 10} ч`
+            };
+        },
+        () => {
+            const s = rand([6000, 8000, 12000]);
+            const t = rand([600, 900, 1200]); // секунды
+            return {
+                problem: `Поезд прошёл ${s} м за ${t} с. Найдите скорость в м/с.`,
+                answer: `v = S / t = ${s} / ${t} = ${Math.round((s / t) * 10) / 10} м/с`
+            };
+        }
+    ];
+    const averageTemplates = [
+        () => {
+            const s1 = 40;
+            const s2 = 60;
+            const v1 = 20;
+            const v2 = 30;
+            const t1 = s1 / v1;
+            const t2 = s2 / v2;
+            const vavg = (s1 + s2) / (t1 + t2);
+            return {
+                problem: `Автобус проехал ${s1} км со скоростью ${v1} км/ч, затем ${s2} км со скоростью ${v2} км/ч. Найдите среднюю скорость на всём пути.`,
+                answer: `t₁ = ${s1}/${v1} = ${t1} ч, t₂ = ${s2}/${v2} = ${t2} ч. vₛᵣ = ${s1 + s2} / (${t1} + ${t2}) = ${Math.round(vavg * 10) / 10} км/ч`
+            };
+        },
+        () => {
+            const s = 18;
+            const t1 = 0.5;
+            const t2 = 0.3;
+            const vavg = s / (t1 + t2);
+            return {
+                problem: `Спортсмен пробежал ${s} км: первую часть за ${t1} ч, вторую за ${t2} ч. Какова средняя скорость забега?`,
+                answer: `t = ${t1} + ${t2} = ${t1 + t2} ч, vₛᵣ = ${s} / ${t1 + t2} = ${Math.round(vavg * 10) / 10} км/ч`
+            };
+        },
+        () => {
+            const segments = [
+                { s: 10, v: 5 },
+                { s: 14, v: 7 },
+                { s: 6, v: 3 }
+            ];
+            const totalS = segments.reduce((acc, curr) => acc + curr.s, 0);
+            const totalT = segments.reduce((acc, curr) => acc + curr.s / curr.v, 0);
+            return {
+                problem: `Турист прошёл ${segments[0].s} км со скоростью ${segments[0].v} км/ч, затем ${segments[1].s} км со скоростью ${segments[1].v} км/ч и ${segments[2].s} км со скоростью ${segments[2].v} км/ч. Найдите среднюю скорость туриста.`,
+                answer: `Sₒбщ = ${totalS} км, tₒбщ = ${segments[0].s}/${segments[0].v} + ${segments[1].s}/${segments[1].v} + ${segments[2].s}/${segments[2].v} = ${Math.round(totalT * 100) / 100} ч. vₛᵣ = ${totalS} / ${Math.round(totalT * 100) / 100} ≈ ${Math.round((totalS / totalT) * 10) / 10} км/ч`
+            };
+        }
+    ];
+    const relativeTemplates = [
+        () => {
+            const v1 = rand([12, 15, 18]);
+            const v2 = rand([20, 24, 30]);
+            const distance = rand([120, 150, 180]);
+            const vrel = v1 + v2;
+            const time = distance / vrel;
+            return {
+                problem: `Два велосипедиста выехали навстречу из пунктов, расстояние между которыми ${distance} км. Скорости: ${v1} км/ч и ${v2} км/ч. Через сколько часов они встретятся?`,
+                answer: `vₛᵦл = ${v1} + ${v2} = ${vrel} км/ч, t = ${distance} / ${vrel} = ${Math.round(time * 100) / 100} ч`
+            };
+        },
+        () => {
+            const v1 = rand([70, 80, 90]);
+            const v2 = rand([50, 55, 60, 65]);
+            const vrel = Math.abs(v1 - v2);
+            const time = rand([1, 1.5, 2, 2.5]);
+            return {
+                problem: `Два автомобиля движутся в одном направлении: первый со скоростью ${v1} км/ч, второй — ${v2} км/ч. На сколько километров увеличится расстояние между ними за ${time} ч?`,
+                answer: `vᵣᵃᶻн = |${v1} - ${v2}| = ${vrel} км/ч, S = ${vrel} · ${time} = ${Math.round(vrel * time * 10) / 10} км`
+            };
+        },
+        () => {
+            const vBoat = rand([18, 20, 24]);
+            const vStream = rand([2, 3, 4]);
+            return {
+                problem: `Катер движется по течению со скоростью ${vBoat + vStream} км/ч, а против течения — ${vBoat - vStream} км/ч. Найдите собственную скорость катера и скорость течения.`,
+                answer: `vₖ = (${vBoat + vStream} + ${vBoat - vStream}) / 2 = ${vBoat} км/ч, vₜ = (${vBoat + vStream} - (${vBoat - vStream})) / 2 = ${vStream} км/ч`
+            };
+        }
+    ];
+    let selected;
+    if (type === 'basic') {
+        selected = rand(basicTemplates)();
+    } else if (type === 'average') {
+        selected = rand(averageTemplates)();
+    } else {
+        selected = rand(relativeTemplates)();
+    }
+    container.innerHTML = `
+        <div class="problem-box">
+            <h3>Задача:</h3>
+            <p class="problem-text">${selected.problem}</p>
+            <details>
+                <summary class="answer-toggle">Показать решение</summary>
+                <div class="answer-content">${selected.answer}</div>
             </details>
         </div>
     `;

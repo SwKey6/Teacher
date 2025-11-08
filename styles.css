@@ -597,9 +597,11 @@ section {
 }
 
 .topics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .topic-card {
@@ -872,6 +874,13 @@ section {
     background: var(--gold-dark);
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
     transform: translateY(-2px);
+}
+
+.physics-problem-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
 }
 
 .problem-box {
