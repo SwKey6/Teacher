@@ -17,7 +17,9 @@ const topicsData = {
         '7': [
             { id: 'fractions', name: 'Сложение и вычитание дробей. Неправильные дроби и целая часть' },
             { id: 'equations', name: 'Уравнения: линейные уравнения с скобками и дробями' },
-            { id: 'expressions7', name: 'Подстановка и вычисление значения выражения (дроби, скобки)' }
+            { id: 'expressions7', name: 'Подстановка и вычисление значения выражения (дроби, скобки)' },
+            { id: 'intervals', name: 'Интервалы' },
+            { id: 'function-values', name: 'Вычисление значений функции по формуле' }
         ]
     },
     physics: {
@@ -94,6 +96,12 @@ function loadLessonContent(topicId, topicName) {
     } else if (topicId === 'speed-basics') {
         loadPhysicsSpeedTheory(theorySection, topicName);
         loadPhysicsSpeedProblems(problemsSection);
+    } else if (topicId === 'intervals') {
+        loadIntervalsTheory(theorySection, topicName);
+        loadIntervalsProblems(problemsSection);
+    } else if (topicId === 'function-values') {
+        loadFunctionValuesTheory(theorySection, topicName);
+        loadFunctionValuesProblems(problemsSection);
     } else {
         theorySection.innerHTML = '<p>Теория будет добавлена позже.</p>';
         problemsSection.innerHTML = '<p>Задачи будут добавлены позже.</p>';
@@ -727,6 +735,316 @@ function generatePhysicsSpeedProblem(type) {
             <details>
                 <summary class="answer-toggle">Показать решение</summary>
                 <div class="answer-content">${selected.answer}</div>
+            </details>
+        </div>
+    `;
+}
+
+function loadIntervalsTheory(section, topicName) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Теория: ${topicName}
+        </h2>
+        <h3>Что такое интервал?</h3>
+        <p><strong>Интервал</strong> — это множество чисел, расположенных между двумя числами на числовой прямой.</p>
+        
+        <h4>1. Открытый интервал (a; b)</h4>
+        <p>Числа от a до b, не включая сами числа a и b.</p>
+        <div class="example-box">
+            <p>Пример: (2; 5) — все числа больше 2 и меньше 5.</p>
+            <p>На числовой прямой: <span class="formula">○——○</span>, где кружки показывают, что 2 и 5 не входят в интервал.</p>
+        </div>
+        
+        <h4>2. Закрытый интервал [a; b]</h4>
+        <p>Числа от a до b, включая сами числа a и b.</p>
+        <div class="example-box">
+            <p>Пример: [1; 4] — все числа от 1 до 4 включительно.</p>
+            <p>На числовой прямой: <span class="formula">●——●</span>, где точки показывают, что 1 и 4 входят в интервал.</p>
+        </div>
+        
+        <h4>3. Полуоткрытые интервалы</h4>
+        <p><strong>[a; b)</strong> — включает a, но не включает b.</p>
+        <p><strong>(a; b]</strong> — не включает a, но включает b.</p>
+        <div class="example-box">
+            <p>Пример: [3; 7) — числа от 3 (включительно) до 7 (не включительно).</p>
+            <p>Пример: (0; 5] — числа от 0 (не включительно) до 5 (включительно).</p>
+        </div>
+        
+        <h4>4. Бесконечные интервалы</h4>
+        <p><strong>(-∞; a)</strong> — все числа меньше a.</p>
+        <p><strong>(-∞; a]</strong> — все числа меньше или равные a.</p>
+        <p><strong>(a; +∞)</strong> — все числа больше a.</p>
+        <p><strong>[a; +∞)</strong> — все числа больше или равные a.</p>
+        <div class="example-box">
+            <p>Пример: (-∞; 3) — все числа меньше 3.</p>
+            <p>Пример: [0; +∞) — все неотрицательные числа (0 и больше).</p>
+        </div>
+        
+        <h4>5. Как записывать ответы</h4>
+        <ul>
+            <li>Круглая скобка ( или ) означает, что число <strong>не входит</strong> в интервал</li>
+            <li>Квадратная скобка [ или ] означает, что число <strong>входит</strong> в интервал</li>
+            <li>Всегда записывайте интервал от меньшего числа к большему</li>
+        </ul>
+        
+        <div class="example-box">
+            <h4>Примеры записи:</h4>
+            <ul>
+                <li>Числа от -2 до 5 (не включая -2 и 5): <span class="formula">(-2; 5)</span></li>
+                <li>Числа от 0 до 10 (включая оба): <span class="formula">[0; 10]</span></li>
+                <li>Числа больше 3: <span class="formula">(3; +∞)</span></li>
+                <li>Числа меньше или равные -1: <span class="formula">(-∞; -1]</span></li>
+            </ul>
+        </div>
+    `;
+}
+
+function loadIntervalsProblems(section) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Генератор задач
+        </h2>
+        <p>Нажмите кнопку ниже, чтобы сгенерировать задачу по интервалам:</p>
+        <button class="generate-btn" onclick="generateIntervalProblem()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 20px; height: 20px;">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 1 1 10-10"></path>
+            </svg>
+            Сгенерировать задачу
+        </button>
+        <div id="intervalProblemContainer"></div>
+    `;
+}
+
+function generateIntervalProblem() {
+    const container = document.getElementById('intervalProblemContainer');
+    const problems = [
+        {
+            problem: 'Запишите интервал: все числа от 2 до 7, включая оба конца.',
+            answer: '[2; 7]'
+        },
+        {
+            problem: 'Запишите интервал: все числа от -3 до 5, не включая -3 и 5.',
+            answer: '(-3; 5)'
+        },
+        {
+            problem: 'Запишите интервал: все числа от 0 до 10, включая 0, но не включая 10.',
+            answer: '[0; 10)'
+        },
+        {
+            problem: 'Запишите интервал: все числа от -5 до 3, не включая -5, но включая 3.',
+            answer: '(-5; 3]'
+        },
+        {
+            problem: 'Запишите интервал: все числа больше 4.',
+            answer: '(4; +∞)'
+        },
+        {
+            problem: 'Запишите интервал: все числа меньше или равные -2.',
+            answer: '(-∞; -2]'
+        },
+        {
+            problem: 'Запишите интервал: все числа от 1 до 8, включая оба конца.',
+            answer: '[1; 8]'
+        },
+        {
+            problem: 'Запишите интервал: все числа больше или равные 0.',
+            answer: '[0; +∞)'
+        },
+        {
+            problem: 'Запишите интервал: все числа от -4 до 6, не включая оба конца.',
+            answer: '(-4; 6)'
+        },
+        {
+            problem: 'Запишите интервал: все числа меньше 9.',
+            answer: '(-∞; 9)'
+        }
+    ];
+    const random = problems[Math.floor(Math.random() * problems.length)];
+    container.innerHTML = `
+        <div class="problem-box">
+            <h3>Задача:</h3>
+            <p class="problem-text">${random.problem}</p>
+            <details>
+                <summary class="answer-toggle">Показать ответ</summary>
+                <div class="answer-content">${random.answer}</div>
+            </details>
+        </div>
+    `;
+}
+
+function loadFunctionValuesTheory(section, topicName) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Теория: ${topicName}
+        </h2>
+        <h3>Что такое функция?</h3>
+        <p><strong>Функция</strong> — это правило, по которому каждому значению x ставится в соответствие единственное значение y.</p>
+        <p>Обычно функцию записывают как <span class="formula">y = f(x)</span> или просто формулу, например <span class="formula">y = 2x + 3</span>.</p>
+        
+        <h4>1. Как вычислить значение функции</h4>
+        <p>Чтобы найти значение функции при заданном x, нужно подставить это значение вместо x в формулу и вычислить результат.</p>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Дана функция <span class="formula">y = 3x - 5</span>. Найти y при x = 4.</p>
+            <p>Подставляем: <span class="formula">y = 3 · 4 - 5 = 12 - 5 = 7</span></p>
+            <p>Ответ: при x = 4 значение функции y = 7.</p>
+        </div>
+        
+        <h4>2. Вычисление для нескольких значений</h4>
+        <p>Часто нужно найти значения функции для нескольких x. Подставляем каждое значение по очереди.</p>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Функция <span class="formula">y = 2x + 1</span>. Найти значения при x = 0, x = 2, x = -1.</p>
+            <ul>
+                <li>При x = 0: <span class="formula">y = 2 · 0 + 1 = 1</span></li>
+                <li>При x = 2: <span class="formula">y = 2 · 2 + 1 = 5</span></li>
+                <li>При x = -1: <span class="formula">y = 2 · (-1) + 1 = -2 + 1 = -1</span></li>
+            </ul>
+        </div>
+        
+        <h4>3. Функции с дробными коэффициентами</h4>
+        <p>Если в формуле есть дроби, аккуратно выполняем действия с дробями.</p>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Функция <span class="formula">y = (1/2)x + 3</span>. Найти y при x = 4.</p>
+            <p><span class="formula">y = (1/2) · 4 + 3 = 2 + 3 = 5</span></p>
+        </div>
+        
+        <h4>4. Функции со скобками</h4>
+        <p>Сначала выполняем действия в скобках, затем остальные операции.</p>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Функция <span class="formula">y = 2(x - 3) + 5</span>. Найти y при x = 7.</p>
+            <p><span class="formula">y = 2(7 - 3) + 5 = 2 · 4 + 5 = 8 + 5 = 13</span></p>
+        </div>
+        
+        <h4>5. Алгоритм вычисления</h4>
+        <ol>
+            <li>Запишите формулу функции</li>
+            <li>Подставьте значение x вместо переменной</li>
+            <li>Выполните вычисления по порядку (сначала скобки, затем умножение/деление, потом сложение/вычитание)</li>
+            <li>Запишите ответ</li>
+        </ol>
+        
+        <h4>6. Таблица значений</h4>
+        <p>Иногда удобно составить таблицу значений функции:</p>
+        <div class="example-box">
+            <p>Для функции <span class="formula">y = x + 2</span>:</p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tr style="border-bottom: 1px solid var(--gold);">
+                    <th style="padding: 8px; text-align: center;">x</th>
+                    <th style="padding: 8px; text-align: center;">y</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">-1</td>
+                    <td style="padding: 8px; text-align: center;">1</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">0</td>
+                    <td style="padding: 8px; text-align: center;">2</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">1</td>
+                    <td style="padding: 8px; text-align: center;">3</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">2</td>
+                    <td style="padding: 8px; text-align: center;">4</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h4>Важно помнить</h4>
+        <ul>
+            <li>Внимательно подставляйте отрицательные числа (используйте скобки)</li>
+            <li>Следите за порядком действий</li>
+            <li>Проверяйте вычисления</li>
+        </ul>
+    `;
+}
+
+function loadFunctionValuesProblems(section) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Генератор задач
+        </h2>
+        <p>Нажмите кнопку ниже, чтобы сгенерировать задачу по вычислению значений функции:</p>
+        <button class="generate-btn" onclick="generateFunctionValueProblem()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 20px; height: 20px;">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 1 1 10-10"></path>
+            </svg>
+            Сгенерировать задачу
+        </button>
+        <div id="functionValueProblemContainer"></div>
+    `;
+}
+
+function generateFunctionValueProblem() {
+    const container = document.getElementById('functionValueProblemContainer');
+    const problems = [
+        {
+            problem: 'Дана функция y = 2x + 3. Найдите значение функции при x = 5.',
+            answer: 'y = 2 · 5 + 3 = 10 + 3 = 13'
+        },
+        {
+            problem: 'Дана функция y = 3x - 4. Найдите значение функции при x = 2.',
+            answer: 'y = 3 · 2 - 4 = 6 - 4 = 2'
+        },
+        {
+            problem: 'Дана функция y = x + 7. Найдите значение функции при x = -3.',
+            answer: 'y = (-3) + 7 = 4'
+        },
+        {
+            problem: 'Дана функция y = 4x - 1. Найдите значение функции при x = 0.',
+            answer: 'y = 4 · 0 - 1 = -1'
+        },
+        {
+            problem: 'Дана функция y = 2(x - 3) + 5. Найдите значение функции при x = 6.',
+            answer: 'y = 2(6 - 3) + 5 = 2 · 3 + 5 = 6 + 5 = 11'
+        },
+        {
+            problem: 'Дана функция y = (1/2)x + 4. Найдите значение функции при x = 6.',
+            answer: 'y = (1/2) · 6 + 4 = 3 + 4 = 7'
+        },
+        {
+            problem: 'Дана функция y = 5x + 2. Найдите значение функции при x = -1.',
+            answer: 'y = 5 · (-1) + 2 = -5 + 2 = -3'
+        },
+        {
+            problem: 'Дана функция y = 3(x + 2) - 1. Найдите значение функции при x = 1.',
+            answer: 'y = 3(1 + 2) - 1 = 3 · 3 - 1 = 9 - 1 = 8'
+        },
+        {
+            problem: 'Дана функция y = 2x - 5. Найдите значение функции при x = 4.',
+            answer: 'y = 2 · 4 - 5 = 8 - 5 = 3'
+        },
+        {
+            problem: 'Дана функция y = (1/3)x + 6. Найдите значение функции при x = 9.',
+            answer: 'y = (1/3) · 9 + 6 = 3 + 6 = 9'
+        }
+    ];
+    const random = problems[Math.floor(Math.random() * problems.length)];
+    container.innerHTML = `
+        <div class="problem-box">
+            <h3>Задача:</h3>
+            <p class="problem-text">${random.problem}</p>
+            <details>
+                <summary class="answer-toggle">Показать решение</summary>
+                <div class="answer-content">${random.answer}</div>
             </details>
         </div>
     `;

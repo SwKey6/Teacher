@@ -36,6 +36,18 @@ const homeworkCodes = {
         topicName: 'Скорость, путь, время. Средняя и относительная скорость',
         subject: 'physics',
         grade: '7'
+    },
+    'CODE78901234': {
+        topic: 'intervals',
+        topicName: 'Интервалы',
+        subject: 'math',
+        grade: '7'
+    },
+    'CODE78901235': {
+        topic: 'function-values',
+        topicName: 'Вычисление значений функции по формуле',
+        subject: 'math',
+        grade: '7'
     }
     // Здесь можно добавить больше кодов для других тем
 };

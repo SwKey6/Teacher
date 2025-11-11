@@ -191,6 +191,10 @@ function generateHomework() {
         generatedProblems = generateExpressions7Homework(10);
     } else if (currentCodeData.topic === 'speed-basics') {
         generatedProblems = generatePhysicsSpeedHomework(10);
+    } else if (currentCodeData.topic === 'intervals') {
+        generatedProblems = generateIntervalsHomework(10);
+    } else if (currentCodeData.topic === 'function-values') {
+        generatedProblems = generateFunctionValuesHomework(10);
     } else {
         problemsContainer.innerHTML = '<p>Домашнее задание для этой темы пока не готово.</p>';
         return;
@@ -751,6 +755,267 @@ function generatePhysicsSpeedHomework(count) {
             });
         }
     }
+    return problems.slice(0, count);
+}
+
+// Генератор домашних заданий по интервалам
+function generateIntervalsHomework(count) {
+    const problems = [];
+    const randFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    
+    const templates = [
+        // Закрытый интервал
+        () => {
+            const a = randFrom([0, 1, 2, 3, 4, 5]);
+            const b = randFrom([6, 7, 8, 9, 10]);
+            if (a >= b) return null;
+            return {
+                text: `Запишите интервал: все числа от ${a} до ${b}, включая оба конца.`,
+                answer: `[${a}; ${b}]`,
+                solution: `Закрытый интервал включает оба конца, поэтому используем квадратные скобки: [${a}; ${b}]`
+            };
+        },
+        // Открытый интервал
+        () => {
+            const a = randFrom([-5, -4, -3, -2, -1, 0, 1, 2]);
+            const b = randFrom([3, 4, 5, 6, 7, 8]);
+            if (a >= b) return null;
+            return {
+                text: `Запишите интервал: все числа от ${a} до ${b}, не включая ${a} и ${b}.`,
+                answer: `(${a}; ${b})`,
+                solution: `Открытый интервал не включает концы, поэтому используем круглые скобки: (${a}; ${b})`
+            };
+        },
+        // Полуоткрытый [a; b)
+        () => {
+            const a = randFrom([0, 1, 2, 3, 4]);
+            const b = randFrom([5, 6, 7, 8, 9, 10]);
+            if (a >= b) return null;
+            return {
+                text: `Запишите интервал: все числа от ${a} до ${b}, включая ${a}, но не включая ${b}.`,
+                answer: `[${a}; ${b})`,
+                solution: `Интервал включает левый конец (квадратная скобка) и не включает правый (круглая скобка): [${a}; ${b})`
+            };
+        },
+        // Полуоткрытый (a; b]
+        () => {
+            const a = randFrom([-5, -4, -3, -2, -1, 0]);
+            const b = randFrom([1, 2, 3, 4, 5]);
+            if (a >= b) return null;
+            return {
+                text: `Запишите интервал: все числа от ${a} до ${b}, не включая ${a}, но включая ${b}.`,
+                answer: `(${a}; ${b}]`,
+                solution: `Интервал не включает левый конец (круглая скобка) и включает правый (квадратная скобка): (${a}; ${b}]`
+            };
+        },
+        // Бесконечный (a; +∞)
+        () => {
+            const a = randFrom([0, 1, 2, 3, 4, 5]);
+            return {
+                text: `Запишите интервал: все числа больше ${a}.`,
+                answer: `(${a}; +∞)`,
+                solution: `Все числа больше ${a} (не включая ${a}): (${a}; +∞)`
+            };
+        },
+        // Бесконечный [a; +∞)
+        () => {
+            const a = randFrom([0, 1, 2, 3]);
+            return {
+                text: `Запишите интервал: все числа больше или равные ${a}.`,
+                answer: `[${a}; +∞)`,
+                solution: `Все числа от ${a} и больше (включая ${a}): [${a}; +∞)`
+            };
+        },
+        // Бесконечный (-∞; a)
+        () => {
+            const a = randFrom([1, 2, 3, 4, 5, 6]);
+            return {
+                text: `Запишите интервал: все числа меньше ${a}.`,
+                answer: `(-∞; ${a})`,
+                solution: `Все числа меньше ${a} (не включая ${a}): (-∞; ${a})`
+            };
+        },
+        // Бесконечный (-∞; a]
+        () => {
+            const a = randFrom([-2, -1, 0, 1, 2, 3]);
+            return {
+                text: `Запишите интервал: все числа меньше или равные ${a}.`,
+                answer: `(-∞; ${a}]`,
+                solution: `Все числа до ${a} включительно: (-∞; ${a}]`
+            };
+        },
+        // Простой закрытый
+        () => {
+            const a = randFrom([-3, -2, -1, 0]);
+            const b = randFrom([1, 2, 3, 4, 5]);
+            if (a >= b) return null;
+            return {
+                text: `Запишите интервал: все числа от ${a} до ${b} включительно.`,
+                answer: `[${a}; ${b}]`,
+                solution: `Оба конца включены: [${a}; ${b}]`
+            };
+        },
+        // Простой открытый
+        () => {
+            const a = randFrom([-2, -1, 0, 1]);
+            const b = randFrom([3, 4, 5, 6]);
+            if (a >= b) return null;
+            return {
+                text: `Запишите интервал: все числа между ${a} и ${b} (не включая концы).`,
+                answer: `(${a}; ${b})`,
+                solution: `Концы не включены: (${a}; ${b})`
+            };
+        }
+    ];
+    
+    let attempts = 0;
+    while (problems.length < count && attempts < 100) {
+        const template = templates[problems.length % templates.length];
+        const problem = template();
+        if (problem) {
+            problems.push(problem);
+        }
+        attempts++;
+    }
+    
+    return problems.slice(0, count);
+}
+
+// Генератор домашних заданий по вычислению значений функции
+function generateFunctionValuesHomework(count) {
+    const problems = [];
+    const randFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const randValue = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    
+    const templates = [
+        // Простая линейная функция y = ax + b
+        () => {
+            const a = randFrom([2, 3, 4, 5]);
+            const b = randFrom([1, 2, 3, 4, 5]);
+            const x = randFrom([0, 1, 2, 3, 4, 5]);
+            const y = a * x + b;
+            return {
+                text: `Дана функция y = ${a}x + ${b}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a} · ${x} + ${b} = ${a * x} + ${b} = ${y}`
+            };
+        },
+        // Функция с вычитанием y = ax - b
+        () => {
+            const a = randFrom([2, 3, 4, 5]);
+            const b = randFrom([1, 2, 3, 4]);
+            const x = randFrom([2, 3, 4, 5, 6]);
+            const y = a * x - b;
+            return {
+                text: `Дана функция y = ${a}x - ${b}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a} · ${x} - ${b} = ${a * x} - ${b} = ${y}`
+            };
+        },
+        // Функция с отрицательным x
+        () => {
+            const a = randFrom([2, 3, 4]);
+            const b = randFrom([1, 2, 3, 4, 5]);
+            const x = randFrom([-3, -2, -1]);
+            const y = a * x + b;
+            return {
+                text: `Дана функция y = ${a}x + ${b}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a} · (${x}) + ${b} = ${a * x} + ${b} = ${y}`
+            };
+        },
+        // Функция со скобками y = a(x - b) + c
+        () => {
+            const a = randFrom([2, 3]);
+            const b = randFrom([1, 2, 3]);
+            const c = randFrom([1, 2, 3, 4]);
+            const x = randFrom([4, 5, 6, 7]);
+            const y = a * (x - b) + c;
+            return {
+                text: `Дана функция y = ${a}(x - ${b}) + ${c}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a}(${x} - ${b}) + ${c} = ${a} · ${x - b} + ${c} = ${a * (x - b)} + ${c} = ${y}`
+            };
+        },
+        // Функция с дробным коэффициентом y = (1/a)x + b
+        () => {
+            const a = randFrom([2, 3, 4]);
+            const b = randFrom([1, 2, 3, 4]);
+            const x = a * randFrom([2, 3, 4]);
+            const y = (1 / a) * x + b;
+            return {
+                text: `Дана функция y = (1/${a})x + ${b}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = (1/${a}) · ${x} + ${b} = ${x / a} + ${b} = ${y}`
+            };
+        },
+        // Функция y = x + b
+        () => {
+            const b = randFrom([2, 3, 4, 5, 6]);
+            const x = randFrom([0, 1, 2, 3, 4, 5]);
+            const y = x + b;
+            return {
+                text: `Дана функция y = x + ${b}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${x} + ${b} = ${y}`
+            };
+        },
+        // Функция y = ax (без свободного члена)
+        () => {
+            const a = randFrom([2, 3, 4, 5]);
+            const x = randFrom([1, 2, 3, 4, 5]);
+            const y = a * x;
+            return {
+                text: `Дана функция y = ${a}x. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a} · ${x} = ${y}`
+            };
+        },
+        // Функция со скобками y = a(x + b) - c
+        () => {
+            const a = randFrom([2, 3]);
+            const b = randFrom([1, 2]);
+            const c = randFrom([1, 2, 3]);
+            const x = randFrom([1, 2, 3, 4]);
+            const y = a * (x + b) - c;
+            return {
+                text: `Дана функция y = ${a}(x + ${b}) - ${c}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a}(${x} + ${b}) - ${c} = ${a} · ${x + b} - ${c} = ${a * (x + b)} - ${c} = ${y}`
+            };
+        },
+        // Функция с отрицательным результатом
+        () => {
+            const a = randFrom([2, 3, 4]);
+            const b = randFrom([5, 6, 7, 8]);
+            const x = randFrom([0, 1]);
+            const y = a * x - b;
+            return {
+                text: `Дана функция y = ${a}x - ${b}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a} · ${x} - ${b} = ${a * x} - ${b} = ${y}`
+            };
+        },
+        // Функция с нулевым значением
+        () => {
+            const a = randFrom([2, 3, 4]);
+            const x = randFrom([1, 2, 3]);
+            const b = -a * x;
+            const y = a * x + b;
+            return {
+                text: `Дана функция y = ${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)}. Найдите значение функции при x = ${x}.`,
+                answer: y,
+                solution: `y = ${a} · ${x} ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${a * x} ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${y}`
+            };
+        }
+    ];
+    
+    while (problems.length < count) {
+        const template = templates[problems.length % templates.length];
+        const problem = template();
+        problems.push(problem);
+    }
+    
     return problems.slice(0, count);
 }
 
