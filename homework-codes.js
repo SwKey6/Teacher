@@ -48,6 +48,12 @@ const homeworkCodes = {
         topicName: 'Вычисление значений функции по формуле',
         subject: 'math',
         grade: '7'
+    },
+    'CODE78901236': {
+        topic: 'graphs',
+        topicName: 'Графики: линейные функции и гиперболы',
+        subject: 'math',
+        grade: '7'
     }
     // Здесь можно добавить больше кодов для других тем
 };

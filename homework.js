@@ -195,6 +195,8 @@ function generateHomework() {
         generatedProblems = generateIntervalsHomework(10);
     } else if (currentCodeData.topic === 'function-values') {
         generatedProblems = generateFunctionValuesHomework(10);
+    } else if (currentCodeData.topic === 'graphs') {
+        generatedProblems = generateGraphsHomework(10);
     } else {
         problemsContainer.innerHTML = '<p>Домашнее задание для этой темы пока не готово.</p>';
         return;
@@ -1014,6 +1016,73 @@ function generateFunctionValuesHomework(count) {
         const template = templates[problems.length % templates.length];
         const problem = template();
         problems.push(problem);
+    }
+    
+    return problems.slice(0, count);
+}
+
+// Генератор домашних заданий по графикам
+function generateGraphsHomework(count) {
+    const problems = [];
+    const randFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    
+    // Чередуем типы задач: вычисление y по x и построение графика
+    while (problems.length < count) {
+        const type = problems.length % 2;
+        
+        if (type === 0) {
+            // Вычисление y по x (линейная функция или гипербола)
+            const funcType = Math.random() > 0.5 ? 'linear' : 'hyperbola';
+            
+            if (funcType === 'linear') {
+                const k = randFrom([2, 3, 4, 5]);
+                const b = randFrom([1, 2, 3, 4, 5]);
+                const x = randFrom([0, 1, 2, 3, 4, 5, -1, -2]);
+                const y = k * x + b;
+                problems.push({
+                    text: `Дана линейная функция y = ${k}x + ${b}. Найдите значение y при x = ${x}.`,
+                    answer: y,
+                    solution: `y = ${k} · ${x} + ${b} = ${k * x} + ${b} = ${y}`
+                });
+            } else {
+                const k = randFrom([2, 3, 4, 5, 6, 8, 10, 12]);
+                const x = randFrom([1, 2, 3, 4, -1, -2, -3, -4]);
+                const y = k / x;
+                problems.push({
+                    text: `Дана функция y = ${k}/x. Найдите значение y при x = ${x}.`,
+                    answer: y,
+                    solution: `y = ${k}/${x} = ${y}`
+                });
+            }
+        } else {
+            // Построение графика (не проверяем)
+            const funcType = Math.random() > 0.5 ? 'linear' : 'hyperbola';
+            
+            if (funcType === 'linear') {
+                const k = randFrom([2, 3, 4, -2, -3]);
+                const b = randFrom([1, 2, 3, -1, -2, 0]);
+                let funcStr;
+                if (b === 0) {
+                    funcStr = `y = ${k}x`;
+                } else if (b > 0) {
+                    funcStr = `y = ${k}x + ${b}`;
+                } else {
+                    funcStr = `y = ${k}x - ${Math.abs(b)}`;
+                }
+                problems.push({
+                    text: `Постройте график функции ${funcStr}.`,
+                    answer: 'График построен',
+                    solution: `Составьте таблицу значений (например, для x = -2, -1, 0, 1, 2) и постройте график по точкам. График — прямая линия.`
+                });
+            } else {
+                const k = randFrom([2, 3, 4, 5, 6, 8, 10, 12]);
+                problems.push({
+                    text: `Постройте график функции y = ${k}/x.`,
+                    answer: 'График построен',
+                    solution: `Составьте таблицу значений (например, для x = -4, -2, -1, 1, 2, 4) и постройте график по точкам. График — гипербола (две ветви).`
+                });
+            }
+        }
     }
     
     return problems.slice(0, count);

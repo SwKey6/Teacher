@@ -19,7 +19,8 @@ const topicsData = {
             { id: 'equations', name: 'Уравнения: линейные уравнения с скобками и дробями' },
             { id: 'expressions7', name: 'Подстановка и вычисление значения выражения (дроби, скобки)' },
             { id: 'intervals', name: 'Интервалы' },
-            { id: 'function-values', name: 'Вычисление значений функции по формуле' }
+            { id: 'function-values', name: 'Вычисление значений функции по формуле' },
+            { id: 'graphs', name: 'Графики: линейные функции и гиперболы' }
         ]
     },
     physics: {
@@ -102,6 +103,9 @@ function loadLessonContent(topicId, topicName) {
     } else if (topicId === 'function-values') {
         loadFunctionValuesTheory(theorySection, topicName);
         loadFunctionValuesProblems(problemsSection);
+    } else if (topicId === 'graphs') {
+        loadGraphsTheory(theorySection, topicName);
+        loadGraphsProblems(problemsSection);
     } else {
         theorySection.innerHTML = '<p>Теория будет добавлена позже.</p>';
         problemsSection.innerHTML = '<p>Задачи будут добавлены позже.</p>';
@@ -1045,6 +1049,209 @@ function generateFunctionValueProblem() {
             <details>
                 <summary class="answer-toggle">Показать решение</summary>
                 <div class="answer-content">${random.answer}</div>
+            </details>
+        </div>
+    `;
+}
+
+function loadGraphsTheory(section, topicName) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Теория: ${topicName}
+        </h2>
+        <h3>1. Линейная функция y = kx + b</h3>
+        <p><strong>Линейная функция</strong> — это функция вида <span class="formula">y = kx + b</span>, где k и b — числа.</p>
+        <ul>
+            <li><strong>k</strong> — угловой коэффициент (показывает наклон прямой)</li>
+            <li><strong>b</strong> — свободный член (точка пересечения с осью y)</li>
+        </ul>
+        
+        <h4>Вычисление y по x</h4>
+        <p>Чтобы найти значение y при заданном x, подставляем x в формулу и вычисляем.</p>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Дана функция <span class="formula">y = 2x + 3</span>. Найти y при x = 4.</p>
+            <p><span class="formula">y = 2 · 4 + 3 = 8 + 3 = 11</span></p>
+            <p>Ответ: при x = 4, y = 11.</p>
+        </div>
+        
+        <h4>Построение графика линейной функции</h4>
+        <p>График линейной функции — прямая линия. Для построения нужно:</p>
+        <ol>
+            <li>Составить таблицу значений (выбрать 2-3 значения x и вычислить y)</li>
+            <li>Отметить точки на координатной плоскости</li>
+            <li>Провести через них прямую</li>
+        </ol>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Построить график функции <span class="formula">y = 2x + 1</span>.</p>
+            <p>Составим таблицу:</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="border-bottom: 1px solid var(--gold);">
+                    <th style="padding: 8px; text-align: center;">x</th>
+                    <th style="padding: 8px; text-align: center;">y</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">0</td>
+                    <td style="padding: 8px; text-align: center;">1</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">1</td>
+                    <td style="padding: 8px; text-align: center;">3</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">2</td>
+                    <td style="padding: 8px; text-align: center;">5</td>
+                </tr>
+            </table>
+            <p>Отмечаем точки (0; 1), (1; 3), (2; 5) и проводим через них прямую.</p>
+        </div>
+        
+        <h3>2. Гипербола y = k/x</h3>
+        <p><strong>Гипербола</strong> — это функция вида <span class="formula">y = k/x</span>, где k — число, не равное нулю, и x ≠ 0.</p>
+        <p>График гиперболы состоит из двух ветвей, расположенных в I и III четвертях (если k > 0) или во II и IV четвертях (если k < 0).</p>
+        
+        <h4>Вычисление y по x</h4>
+        <p>Подставляем значение x в формулу и вычисляем y. Важно: x не может быть равен нулю!</p>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Дана функция <span class="formula">y = 6/x</span>. Найти y при x = 2.</p>
+            <p><span class="formula">y = 6/2 = 3</span></p>
+            <p>Ответ: при x = 2, y = 3.</p>
+        </div>
+        
+        <h4>Построение графика гиперболы</h4>
+        <p>Для построения графика гиперболы:</p>
+        <ol>
+            <li>Составить таблицу значений (выбрать несколько положительных и отрицательных значений x, x ≠ 0)</li>
+            <li>Вычислить соответствующие значения y</li>
+            <li>Отметить точки на координатной плоскости</li>
+            <li>Плавно соединить точки, получив две ветви гиперболы</li>
+        </ol>
+        <div class="example-box">
+            <h4>Пример:</h4>
+            <p>Построить график функции <span class="formula">y = 4/x</span>.</p>
+            <p>Составим таблицу:</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="border-bottom: 1px solid var(--gold);">
+                    <th style="padding: 8px; text-align: center;">x</th>
+                    <th style="padding: 8px; text-align: center;">y</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">-4</td>
+                    <td style="padding: 8px; text-align: center;">-1</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">-2</td>
+                    <td style="padding: 8px; text-align: center;">-2</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">-1</td>
+                    <td style="padding: 8px; text-align: center;">-4</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">1</td>
+                    <td style="padding: 8px; text-align: center;">4</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">2</td>
+                    <td style="padding: 8px; text-align: center;">2</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: center;">4</td>
+                    <td style="padding: 8px; text-align: center;">1</td>
+                </tr>
+            </table>
+            <p>Отмечаем точки и плавно соединяем их. Получаем две ветви гиперболы.</p>
+        </div>
+        
+        <h4>Важно помнить</h4>
+        <ul>
+            <li>Для линейной функции график — прямая линия</li>
+            <li>Для гиперболы x не может быть равен нулю</li>
+            <li>График гиперболы состоит из двух ветвей</li>
+            <li>При построении графика всегда отмечайте оси координат и начало координат</li>
+        </ul>
+    `;
+}
+
+function loadGraphsProblems(section) {
+    section.innerHTML = `
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Генератор задач
+        </h2>
+        <p>Нажмите кнопку ниже, чтобы сгенерировать задачу по графикам:</p>
+        <button class="generate-btn" onclick="generateGraphProblem()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 20px; height: 20px;">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 1 1 10-10"></path>
+            </svg>
+            Сгенерировать задачу
+        </button>
+        <div id="graphProblemContainer"></div>
+    `;
+}
+
+function generateGraphProblem() {
+    const container = document.getElementById('graphProblemContainer');
+    const problemTypes = [
+        // Вычисление y по x для линейной функции
+        () => {
+            const k = [2, 3, 4, 5][Math.floor(Math.random() * 4)];
+            const b = [1, 2, 3, 4, 5][Math.floor(Math.random() * 5)];
+            const x = [0, 1, 2, 3, 4, 5][Math.floor(Math.random() * 6)];
+            const y = k * x + b;
+            return {
+                problem: `Дана линейная функция y = ${k}x + ${b}. Найдите значение y при x = ${x}.`,
+                answer: `y = ${k} · ${x} + ${b} = ${k * x} + ${b} = ${y}`
+            };
+        },
+        // Вычисление y по x для гиперболы
+        () => {
+            const k = [2, 3, 4, 5, 6, 8, 10, 12][Math.floor(Math.random() * 8)];
+            const x = [1, 2, 3, 4, -1, -2, -3, -4][Math.floor(Math.random() * 8)];
+            const y = k / x;
+            return {
+                problem: `Дана функция y = ${k}/x. Найдите значение y при x = ${x}.`,
+                answer: `y = ${k}/${x} = ${y}`
+            };
+        },
+        // Построение графика линейной функции
+        () => {
+            const k = [2, 3, 4, -2, -3][Math.floor(Math.random() * 5)];
+            const b = [1, 2, 3, -1, -2][Math.floor(Math.random() * 5)];
+            const sign = k >= 0 ? '+' : '';
+            return {
+                problem: `Постройте график функции y = ${k}x ${sign}${b !== 0 ? (b >= 0 ? `+ ${b}` : `${b}`) : ''}.`,
+                answer: `Составьте таблицу значений (например, для x = -1, 0, 1) и постройте график по точкам. График — прямая линия.`
+            };
+        },
+        // Построение графика гиперболы
+        () => {
+            const k = [2, 3, 4, 5, 6, 8, 10, 12][Math.floor(Math.random() * 8)];
+            return {
+                problem: `Постройте график функции y = ${k}/x.`,
+                answer: `Составьте таблицу значений (например, для x = -4, -2, -1, 1, 2, 4) и постройте график по точкам. График — гипербола (две ветви).`
+            };
+        }
+    ];
+    
+    const randomType = problemTypes[Math.floor(Math.random() * problemTypes.length)];
+    const problem = randomType();
+    
+    container.innerHTML = `
+        <div class="problem-box">
+            <h3>Задача:</h3>
+            <p class="problem-text">${problem.problem}</p>
+            <details>
+                <summary class="answer-toggle">Показать решение</summary>
+                <div class="answer-content">${problem.answer}</div>
             </details>
         </div>
     `;
